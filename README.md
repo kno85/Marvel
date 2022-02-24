@@ -1,5 +1,5 @@
 # Marvel
-Marvel Listado and detaille de personjes.
+Marvel Listado y detalle de personjes.
 
 Se solicita la creación de la estructura de una app que muestre un listado de los personajes Marvel y permite ver el detalle de cada uno de ellos de manera individual.
 
@@ -11,7 +11,7 @@ Especificaciones
 
 Funcionalidad
 
-1. Listas el listado de personajes
+1. Listar el listado de personajes
 2. Navegar al detalle de un personaje concreto
 
 Descripción del proyecto
