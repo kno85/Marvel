@@ -2,6 +2,7 @@ package com.acano.marvel.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.heroList.observe(this, Observer<List<Hero>>() {
         rV.adapter = CustomAdapter(it)
         })
-
+        mainViewModel.errorMessage.observe(this, Observer<String>() {
+            Toast.makeText(this,it, Toast.LENGTH_LONG).show()
+        })
     }
 }
