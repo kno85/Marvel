@@ -18,7 +18,7 @@ Descripción del proyecto
 
 Proyecto creado con Android Studio haciendo uso de kotlin y aplicando Clean Architecture con patrón MVVM
 
-Este proyecto hace uso de inyección de dependencias con Koin, data binding y segmentación de capas a través de paquetes para aplicar los principios de Clean Architecture.
+Este proyecto hace uso de segmentación de capas a través de paquetes para aplicar los principios de Clean Architecture.
   
 Se facilita además test unitarios.
   
