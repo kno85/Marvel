@@ -1,19 +1,15 @@
 package com.acano.marvel.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.acano.marvel.R
 import com.acano.marvel.domain.Hero
-import com.acano.marvel.ui.CustomAdapter
 import com.acano.marvel.ui.main.ITEM_ID
-import com.acano.marvel.ui.main.MainViewModel
 import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
