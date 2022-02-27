@@ -1,6 +1,7 @@
 package com.acano.marvel.network
 
 import com.acano.marvel.network.model.Data
+import com.acano.marvel.network.model.Hero
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,12 +21,12 @@ interface ApiService {
         @Query("limit") limit: Int?
     ): Call <Data>
 
-//    @GET(CharacterEnpoint)
-//    fun getCharacter(
-//        @Path("characterId") characterid: Int,
-//        @Query("ts") ts: String,
-//        @Query("apikey") apikey: String,
-//        @Query("hash") hash: String
-//    ): Call <Data>
+    @GET(CharacterEnpoint)
+    fun getCharacter(
+        @Path("characterId") characterid: Int,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): Call <Data>
 }
 

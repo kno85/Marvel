@@ -3,6 +3,7 @@ package com.acano.marvel.network
 import com.acano.marvel.BuildConfig
 import com.acano.marvel.network.CharactersBuilder.apiRest
 import com.acano.marvel.network.model.Data
+import com.acano.marvel.network.model.Hero
 import com.acano.marvel.util.getHash
 import retrofit2.Response
 import kotlin.random.Random
@@ -20,15 +21,13 @@ class RetrofitDataSource : RemoteDateSource {
     }
 
 
-    override suspend fun getCharacter(id:Int): Character?  {
-       // val query=apiRest.getCharacter(id,ts,apiKey, hash).execute()
-      //  return toDomainCharacterResult(query.body()?.results?.items?.get(0))
-   return null
+    override suspend fun getCharacter(id:Int): Response<Data>?  {
+        return apiRest.getCharacter(id,ts,apiKey, hash).execute()
     }
 }
 interface RemoteDateSource {
     suspend fun getHeroList(): Response<Data>
-    suspend fun getCharacter(id:Int): Character?
+    suspend fun getCharacter(id:Int): Response<Data>?
 }
 
 

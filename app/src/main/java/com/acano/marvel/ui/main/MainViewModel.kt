@@ -8,14 +8,13 @@ import com.acano.marvel.domain.Hero
 import com.acano.marvel.network.RetrofitDataSource
 import com.acano.marvel.network.model.ErrorResponse
 import com.acano.marvel.usecases.UseCases
-import com.acano.marvel.util.toDomainCharacter
+import com.acano.marvel.util.toDomainCharacters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 
 class MainViewModel : ViewModel() {
@@ -39,7 +38,6 @@ class MainViewModel : ViewModel() {
                     _errorMessage.value= err.message
                 }
                 .collect { list ->
-                   // _showProgressBar.postValue(false)
                     if(list.heroList!=null){
                         _heroList.value = list.heroList
                     }else{
@@ -60,7 +58,7 @@ class MainViewModel : ViewModel() {
                 var errorResponse: ErrorResponse? = gson.fromJson(it.errorBody()!!.charStream(), type)
                 emit(UiResult(null,"ERROR_CODE: "+errorResponse?.code.toString()+" "+errorResponse?.message))
             }else{
-                result.let { it1 -> toDomainCharacter(it1.body()?.results?.items)?.let { it2 -> emit(UiResult(it2,"")) } }
+                result.let { it1 -> toDomainCharacters(it1.body()?.results?.items)?.let { it2 -> emit(UiResult(it2,"")) } }
             }
         }
     }.flowOn(Dispatchers.IO)

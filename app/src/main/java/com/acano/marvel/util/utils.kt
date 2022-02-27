@@ -17,7 +17,7 @@ private fun md5(input:String): String {
     val list= ArrayList<Hero>()
     for(i in 1..10){
         list.add(
-            Hero("Hero "+i,
+            Hero(i,"Hero "+i,
                 "bla bla bla,bla bla bla,bla bla bla,bla bla bla,bla bla bla,bla bla bla",
                 "")
         )

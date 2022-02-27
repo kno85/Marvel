@@ -9,7 +9,7 @@ class UseCases(val charactersRepository: RetrofitDataSource) {
     suspend fun invokeList(): Response<Data> {
         return charactersRepository.getHeroList()
     }
-    suspend fun checkItem(id:Int): Character? {
+    suspend fun checkItem(id:Int): Response<com.acano.marvel.network.model.Data>? {
         return charactersRepository.getCharacter(id)
     }
 }
