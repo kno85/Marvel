@@ -51,15 +51,7 @@ class MainViewModel(val repo: DataRepository) : ViewModel() {
     private suspend fun fetchHeroList() = flow<UiResult> {
         delay(700)
         UseCases(repo).invokeList().let {
-            val result= it
-            if(it.errorBody()!=null){
-                val gson = Gson()
-                val type = object : TypeToken<ErrorResponse>() {}.type
-                var errorResponse: ErrorResponse? = gson.fromJson(it.errorBody()!!.charStream(), type)
-                emit(UiResult(null,"ERROR_CODE: "+errorResponse?.code.toString()+" "+errorResponse?.message))
-            }else{
-                result.let { it1 -> toDomainCharacters(it1.body()?.results?.items)?.let { it2 -> emit(UiResult(it2,"")) } }
-            }
+           emit(it)
         }
     }.flowOn(Dispatchers.IO)
 
