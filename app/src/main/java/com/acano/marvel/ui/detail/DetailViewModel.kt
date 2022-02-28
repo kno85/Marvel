@@ -33,10 +33,11 @@ class DetailViewModel(val repo: DataRepository) : ViewModel() {
                 }
                 .collect { result ->
                     if(result.hero!=null){
-                        _hero.value = result.hero
+                        _hero.value = result.hero!!
                     }else{
-                        _errorMessage.value= result.errorMessage
-                    }                }
+                        _errorMessage.value= result.errorMessage!!
+                    }
+                }
         }
     }
 
