@@ -6,20 +6,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.acano.marvel.R
 import com.acano.marvel.domain.Hero
 import com.acano.marvel.ui.main.ITEM_ID
 import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
-    lateinit var detailViewModel: DetailViewModel
+    val detailViewModel: DetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         val itemId= intent.getIntExtra(ITEM_ID,0)
-        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         detailViewModel.submitHero(itemId)
         setupView()
     }

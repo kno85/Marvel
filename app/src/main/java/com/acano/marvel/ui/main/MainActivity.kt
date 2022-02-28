@@ -1,12 +1,10 @@
 package com.acano.marvel.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.acano.marvel.R
@@ -14,17 +12,17 @@ import com.acano.marvel.domain.Hero
 import com.acano.marvel.ui.CustomAdapter
 import com.acano.marvel.ui.detail.DetailActivity
 import com.acano.marvel.ui.viewActions
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 val ITEM_ID: String?="item_id"
 
 class MainActivity : AppCompatActivity(),viewActions {
-    lateinit var mainViewModel: MainViewModel
+    val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         setupView()
 
     }

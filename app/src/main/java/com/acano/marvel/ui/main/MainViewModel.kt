@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acano.marvel.domain.Hero
-import com.acano.marvel.network.RetrofitDataSource
 import com.acano.marvel.network.model.ErrorResponse
+import com.acano.marvel.repository.DataRepository
 import com.acano.marvel.usecases.UseCases
 import com.acano.marvel.util.toDomainCharacters
 import com.google.gson.Gson
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel(val repo: DataRepository) : ViewModel() {
 
     private val _heroList = MutableLiveData<List<Hero>>()
     val heroList: LiveData<List<Hero>> = _heroList
@@ -50,7 +50,7 @@ class MainViewModel : ViewModel() {
 
     private suspend fun fetchHeroList() = flow<UiResult> {
         delay(700)
-        UseCases(RetrofitDataSource()).invokeList().let {
+        UseCases(repo).invokeList().let {
             val result= it
             if(it.errorBody()!=null){
                 val gson = Gson()

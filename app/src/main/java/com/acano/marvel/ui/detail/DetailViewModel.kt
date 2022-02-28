@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acano.marvel.domain.Hero
-import com.acano.marvel.network.RetrofitDataSource
 import com.acano.marvel.network.model.ErrorResponse
+import com.acano.marvel.repository.DataRepository
 import com.acano.marvel.usecases.UseCases
 import com.acano.marvel.util.toDomainCharacter
 import com.google.gson.Gson
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(val repo: DataRepository) : ViewModel() {
 
     private val _hero = MutableLiveData<Hero>()
     val hero: LiveData<Hero> = _hero
@@ -44,7 +44,7 @@ class DetailViewModel : ViewModel() {
 
     private suspend fun fetchHero(id: Int) = flow<UiDetailResult> {
         delay(700)
-        UseCases(RetrofitDataSource()).checkItem(id).let {
+        UseCases(repo).checkItem(id).let {
             val result= it
             if (it != null) {
                 if(it.errorBody()!=null){
