@@ -32,8 +32,11 @@ class DetailViewModel(val repo: DataRepository) : ViewModel() {
                     _errorMessage.value= err.message
                 }
                 .collect { result ->
-                    _hero.value = result.hero!!
-                }
+                    if(result.hero!=null){
+                        _hero.value = result.hero
+                    }else{
+                        _errorMessage.value= result.errorMessage
+                    }                }
         }
     }
 
@@ -41,9 +44,7 @@ class DetailViewModel(val repo: DataRepository) : ViewModel() {
     private suspend fun fetchHero(id: Int) = flow<UiDetailResult> {
         delay(700)
         UseCases(repo).checkItem(id).let {
-            if (it != null) {
                     emit(it)
-                }
     }}.flowOn(Dispatchers.IO)
 
 
