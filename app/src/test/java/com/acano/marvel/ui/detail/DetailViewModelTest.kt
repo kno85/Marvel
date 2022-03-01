@@ -1,6 +1,9 @@
 package com.acano.marvel.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.acano.marvel.network.RetrofitDataSource
+import com.acano.marvel.repository.DataRepository
+import com.acano.marvel.repository.RemoteDataSource
 import com.acano.marvel.ui.main.MainCoroutineRule
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -16,7 +19,10 @@ class DetailViewModelTest {
 
     @Mock
     private lateinit var viewModel: DetailViewModel
-
+    @Mock
+    private lateinit var repo: DataRepository
+    @Mock
+    private lateinit var  remoteDataSource: RemoteDataSource
     @Rule
     @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -27,10 +33,19 @@ class DetailViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = DetailViewModel()
+        remoteDataSource= RetrofitDataSource()
+        repo=DataRepository(remoteDataSource)
+        viewModel = DetailViewModel(repo)
     }
 
-
+    @Test
+    fun `test exist id hero`() {
+        testCoroutineRule.testDispatcher.runBlockingTest {
+            viewModel.submitHero(1011334)
+        }
+        val resultId:Int=1011334
+        assert(true)to (viewModel.hero.value?.id == resultId)
+    }
     @Test
     fun `test not exist id hero`() {
         testCoroutineRule.testDispatcher.runBlockingTest {
@@ -38,11 +53,5 @@ class DetailViewModelTest {
         }
         assert(viewModel.hero.value == null)
     }
-    @Test
-    fun `test exist id hero`() {
-        testCoroutineRule.testDispatcher.runBlockingTest {
-            viewModel.submitHero(1011334)
-        }
-        assert(viewModel.hero.value != null)
-    }
+
 }

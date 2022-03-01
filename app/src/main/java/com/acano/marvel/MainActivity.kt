@@ -19,15 +19,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
             setContentView(com.acano.marvel.R.layout.activity_main)
-
-            // find nav controller
             val navHostFragment = supportFragmentManager.findFragmentById(com.acano.marvel.R.id.nav_host_fragment) as NavHostFragment
             navController = navHostFragment.findNavController()
         }
-
-    // in order to respond back button in toolbar from fragment
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
 
 }
