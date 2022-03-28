@@ -16,7 +16,7 @@ class RetrofitDataSource : RemoteDataSource {
     val apiKey = BuildConfig.API_CLIENT_ID
     val hash= getHash(ts)
 
-    override suspend fun getHeroList(): Response<Data> {
+    override suspend fun getHeroList(): Response<Data>? {
         return  apiRest.getCharacters(ts,apiKey, hash, LIMIT).execute()
 
     }

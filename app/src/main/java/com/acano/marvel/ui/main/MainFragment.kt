@@ -16,14 +16,17 @@ import com.acano.marvel.domain.Hero
 import com.acano.marvel.ui.CustomAdapter
 import com.acano.marvel.ui.main.MainViewModel
 import com.acano.marvel.ui.viewActions
+import com.acano.marvel.usecases.UseCases
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent.inject
 
 val ITEM_ID: String="item_id"
 
 
 class HomeFragment : Fragment(), viewActions {
     private lateinit var mview: View
-    val mainViewModel: MainViewModel by viewModel()
+    //View model injection using Koin way
+    private val mainViewModel by viewModel<MainViewModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -35,10 +38,10 @@ class HomeFragment : Fragment(), viewActions {
     private fun setupView() {
         val rV = mview.findViewById<RecyclerView>(R.id.rv)
         rV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mainViewModel.heroList.observe(this, Observer<List<Hero>>() {
+        mainViewModel.heroList.observe(viewLifecycleOwner, Observer<List<Hero>>() {
             rV.adapter = CustomAdapter(it, this)
         })
-        mainViewModel.errorMessage.observe(this, Observer<String>() {
+        mainViewModel.errorMessage.observe(viewLifecycleOwner, Observer<String>() {
             Toast.makeText(context,it, Toast.LENGTH_LONG).show()
         })
     }

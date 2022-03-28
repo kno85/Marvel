@@ -7,11 +7,11 @@ import com.acano.marvel.ui.detail.UiDetailResult
 import com.acano.marvel.ui.main.UiResult
 import retrofit2.Response
 
-class UseCases(val dataRepository: DataRepository) {
-    suspend fun invokeList():UiResult {
+class UseCases(val dataRepository: DataRepository) :UseCasesInterface{
+    override suspend fun invokeList():UiResult {
         return dataRepository.getList()
     }
-    suspend fun checkItem(id:Int):UiDetailResult {
+    override suspend fun checkItem(id:Int):UiDetailResult {
         return dataRepository.getHero(id)
     }
 }

@@ -14,9 +14,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.java.KoinJavaComponent.inject
 
 
-class DetailViewModel(val repo: DataRepository) : ViewModel() {
+class DetailViewModel() : ViewModel(), KoinComponent {
+    private val useCases : UseCases by inject()
 
     private val _hero = MutableLiveData<Hero>()
     val hero: LiveData<Hero> = _hero
@@ -44,7 +48,7 @@ class DetailViewModel(val repo: DataRepository) : ViewModel() {
 
     private suspend fun fetchHero(id: Int) = flow<UiDetailResult> {
         delay(700)
-        UseCases(repo).checkItem(id).let {
+        useCases.checkItem(id).let {
                     emit(it)
     }}.flowOn(Dispatchers.IO)
 

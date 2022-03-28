@@ -28,14 +28,14 @@ class DetailFragment : Fragment() {
         return mview
     }
     private fun setupView() {
-        detailViewModel.hero.observe(this, Observer<Hero>() {
+        detailViewModel.hero.observe(viewLifecycleOwner, Observer<Hero>() {
             mview.findViewById<TextView>(R.id.detail_title).text=it.name
             mview.findViewById<TextView>(R.id.detail_description).text=it.description
             val imageView = mview.findViewById<ImageView>(R.id.detail_image)
             Glide.with(this).load(it.image).into(imageView)
 
         })
-        detailViewModel.errorMessage.observe(this, Observer<String>() {
+        detailViewModel.errorMessage.observe(viewLifecycleOwner, Observer<String>() {
             Toast.makeText(context,it, Toast.LENGTH_LONG).show()
         })
     }

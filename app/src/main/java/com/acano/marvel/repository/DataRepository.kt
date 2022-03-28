@@ -19,10 +19,12 @@ class DataRepository(val remoteDataSource: RemoteDataSource) {
         val type = object : TypeToken<ErrorResponse>() {}.type
 
         val result=remoteDataSource.getHeroList()
-        if(result.isSuccessful){
-            uiResult= UiResult(toDomainCharacters(result.body()?.results?.items),"")
+        if(result?.isSuccessful == true){
+            if (result != null) {
+                uiResult= UiResult(toDomainCharacters(result.body()?.results?.items),"")
+            }
         }else{
-            var errorResponse: ErrorResponse? = gson.fromJson(result.errorBody()!!.charStream(), type)
+            var errorResponse: ErrorResponse? = gson.fromJson(result?.errorBody()!!.charStream(), type)
             errorMessage=errorResponse?.code.toString()+ errorResponse?.message
             uiResult= UiResult(null,errorMessage)
         }
@@ -50,7 +52,7 @@ class DataRepository(val remoteDataSource: RemoteDataSource) {
 }
 
 interface RemoteDataSource {
-     suspend fun getHeroList(): Response<Data>
+     suspend fun getHeroList(): Response<Data>?
 
      suspend fun getCharacter(id:Int): Response<Data>?
 }
