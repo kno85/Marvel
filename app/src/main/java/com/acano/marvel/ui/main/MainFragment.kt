@@ -1,4 +1,5 @@
-import android.content.Intent
+package com.acano.marvel.ui.main
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,38 +9,34 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.acano.marvel.R
+import com.acano.marvel.databinding.FragmentMainBinding
 import com.acano.marvel.domain.Hero
 import com.acano.marvel.ui.CustomAdapter
-import com.acano.marvel.ui.main.MainViewModel
 import com.acano.marvel.ui.viewActions
-import com.acano.marvel.usecases.UseCases
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.java.KoinJavaComponent.inject
 
 val ITEM_ID: String="item_id"
 
 
-class HomeFragment : Fragment(), viewActions {
-    private lateinit var mview: View
-    //View model injection using Koin way
+class MainFragment : Fragment(), viewActions {
     private val mainViewModel by viewModel<MainViewModel>()
 
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mview = inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         setupView()
-        return mview
+        return binding.root
     }
 
     private fun setupView() {
-        val rV = mview.findViewById<RecyclerView>(R.id.rv)
-        rV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            _binding?.rv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mainViewModel.heroList.observe(viewLifecycleOwner, Observer<List<Hero>>() {
-            rV.adapter = CustomAdapter(it, this)
+            _binding?.rv?.adapter = CustomAdapter(it, this)
         })
         mainViewModel.errorMessage.observe(viewLifecycleOwner, Observer<String>() {
             Toast.makeText(context,it, Toast.LENGTH_LONG).show()
@@ -49,11 +46,15 @@ class HomeFragment : Fragment(), viewActions {
     override fun onItemClick(itemId: Int) {
         val bundle = bundleOf(ITEM_ID to itemId.toString())
 
-        Navigation.findNavController(mview).navigate(R.id.action_mainFragment_to_detailFragment
-            , bundle)
+        _binding?.let {
+            Navigation.findNavController(it.root).navigate(R.id.action_mainFragment_to_detailFragment, bundle)
+        }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
 

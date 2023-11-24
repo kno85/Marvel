@@ -31,6 +31,10 @@ android {
         jvmTarget = '1.8'
     }
     namespace 'com.acano.marvel'
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {

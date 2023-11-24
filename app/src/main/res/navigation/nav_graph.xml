@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="HomeFragment"
+        android:name="com.acano.marvel.ui.main.MainFragment"
         android:label="@string/main"
         tools:layout="@layout/fragment_main">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="DetailFragment"
+        android:name="com.acano.marvel.ui.detail.DetailFragment"
         android:label="@string/detail"
         tools:layout="@layout/fragment_detail">
     </fragment>

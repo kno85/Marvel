@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    tools:context="com.acano.marvel.ui.detail.DetailFragment"
     >
 <ScrollView
     android:layout_width="match_parent"
