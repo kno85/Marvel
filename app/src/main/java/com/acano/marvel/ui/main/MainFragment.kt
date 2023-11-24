@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acano.marvel.R
 import com.acano.marvel.databinding.FragmentMainBinding
-import com.acano.marvel.domain.Hero
 import com.acano.marvel.ui.CustomAdapter
 import com.acano.marvel.ui.viewActions
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,12 +33,14 @@ class MainFragment : Fragment(), viewActions {
     private fun setupView() {
 
             _binding?.rv?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mainViewModel.heroList.observe(viewLifecycleOwner, Observer<List<Hero>>() {
-            _binding?.rv?.adapter = CustomAdapter(it, this)
-        })
-        mainViewModel.errorMessage.observe(viewLifecycleOwner, Observer<String>() {
-            Toast.makeText(context,it, Toast.LENGTH_LONG).show()
-        })
+        mainViewModel.heroList.observe(viewLifecycleOwner) {
+            val heroList = it
+            _binding?.rv?.adapter = CustomAdapter(heroList, this)
+        }
+        mainViewModel.errorMessage.observe(viewLifecycleOwner) {
+            val errorMessage = it
+            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onItemClick(itemId: Int) {

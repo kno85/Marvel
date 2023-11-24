@@ -17,7 +17,7 @@ import org.koin.core.component.inject
 
 
 class DetailViewModel() : ViewModel(), KoinComponent {
-    private val useCases : UseCases by inject()
+    private val detailUseCases : UseCases by inject()
 
     private val _hero = MutableLiveData<Hero>()
     val hero: LiveData<Hero> = _hero
@@ -45,7 +45,7 @@ class DetailViewModel() : ViewModel(), KoinComponent {
 
     private suspend fun fetchHero(id: Int) = flow<UiDetailResult> {
         delay(700)
-        useCases.checkItem(id).let {
+        detailUseCases.checkItem(id).let {
                     emit(it)
     }}.flowOn(Dispatchers.IO)
 
