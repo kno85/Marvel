@@ -1,21 +1,19 @@
 package com.acano.marvel.ui.main
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.acano.marvel.domain.Hero
-import com.acano.marvel.network.model.ErrorResponse
-import com.acano.marvel.repository.DataRepository
 import com.acano.marvel.usecases.UseCases
-import com.acano.marvel.usecases.UseCasesInterface
-import com.acano.marvel.util.toDomainCharacters
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.java.KoinJavaComponent.inject
 
 
 class MainViewModel() : ViewModel(), KoinComponent {
@@ -27,9 +25,13 @@ class MainViewModel() : ViewModel(), KoinComponent {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _showExitDialog= MutableLiveData<Boolean>()
+    val showExitDialog: LiveData<Boolean> = _showExitDialog
+
 
 
     init {
+        _showExitDialog.value = false
         submitHeroList()
     }
 
@@ -56,6 +58,10 @@ class MainViewModel() : ViewModel(), KoinComponent {
            emit(it)
         }
     }.flowOn(Dispatchers.IO)
+
+    fun userPressBackButton() {
+        _showExitDialog.value = !_showExitDialog.value!!
+    }
 
 
 }

@@ -3,6 +3,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main">Main</string>
     <string name="detail">Detail</string>
+    <string name="exit">Salir</string>
+    <string name="exit_body">¿Salir de esta App?</string>
 
+    <string name="yes_exit">Si</string>
+    <string name="no_cancel">No</string>
 
 </resources>

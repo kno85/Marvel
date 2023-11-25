@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.acano.marvel.R
 import com.acano.marvel.databinding.FragmentDetailBinding
-import com.acano.marvel.ui.main.ITEM_ID
+import com.acano.marvel.util.ITEM_ID
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
